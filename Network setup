@@ -1,0 +1,24 @@
+# 01 - Network Setup
+
+
+##Dilemma: We now have 2 working operating systems that sit on the virtualbox but have no way of communicating since they have no IP address and no network for that matter for them to share
+##Objective: Ping each other's IP address to notify that the 2 OS are on the same network
+Steps
+
+1) Set both VMs to Internal Network name it "labnet" purpose: (so they can reach each other while staying isolated from the host network and internet)
+2) Great we created a "fake" network; now we need to make fake IDs for our OS, in other words; IP addresses.
+3) I did this manually by assigning them since there is no router and therefore no DHCP to assign them for me
+
+On the Metasploitable terminal:
+4) terminal> sudo ifconfig eth0 192.168.50.10
+
+on the Kali terminal:
+5) terminal> sudo ifconfig eth0 192.168.50.20
+
+Now check the config to see if the address has been correctly manually given
+6) terminal> ifconfig
+
+** You noticed that Both devices are on the same subnet, 192.168.50.0/24 (subnet mask 255.255.255.0). This mask means the first three octets identify the network,
+and the last octet identifies each device. Kali (192.168.50.20) and Metasploitable (192.168.50.10) share the same network portion and only differ in the last number.
+
+7)Now vice versa we can ping each other's IP addresses on the other's OS terminal to see if there is connection and there will be packets that deliver successfully
